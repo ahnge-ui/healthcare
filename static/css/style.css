@@ -1,0 +1,59 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+
+    /* Background image applied to the whole viewport (outside the layout/content) */
+    background-image: linear-gradient(rgba(244, 247, 250, 0.92), rgba(244, 247, 250, 0.92)),
+        url('/static/images/hospital_pic.jpg');
+    min-height: 100vh;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+/* SIDEBAR */
+.sidebar {
+    width: 220px;
+    height: 100vh;
+    background: #1f3b57;
+    position: fixed;
+    top: 0;
+    left: 0;
+    padding-top: 20px;
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.sidebar h2 {
+    color: white;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.sidebar a {
+    display: block;
+    color: white;
+    padding: 12px 20px;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.sidebar a:hover {
+    background: #2c5d85;
+    padding-left: 25px;
+}
+
+/* TOPBAR */
+.topbar {
+    margin-left: 220px;
+    background: white;
+    padding: 15px 20px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    font-weight: bold;
+}
+
+/* CONTENT */
+.content {
+    margin-left: 220px;
+    padding: 20px;
+}

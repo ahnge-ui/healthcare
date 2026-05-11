@@ -1,0 +1,90 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div style="padding:20px;">
+
+    <!-- HEADER -->
+    <div style="margin-bottom:20px;">
+        <h2 style="margin:0;">Appointments Management System</h2>
+        <p style="color:gray;">Manage hospital appointments efficiently</p>
+    </div>
+
+    <!-- MAIN LAYOUT -->
+    <div style="display:flex; gap:20px; flex-wrap:wrap;">
+
+        <!-- LEFT FORM -->
+        <div style="flex:1; min-width:300px; background:#f8f9fb; padding:20px; border-radius:10px;">
+
+            <h3 style="margin-top:0;">Schedule Appointment</h3>
+
+            <form action="/add_appointment" method="POST">
+
+                <input type="number" name="patient_id" placeholder="Patient ID" required
+                    style="width:100%; padding:10px; margin-bottom:10px;">
+
+                <input type="text" name="appointment_date" placeholder="Appointment Date" required
+                    style="width:100%; padding:10px; margin-bottom:10px;">
+
+                <input type="text" name="doctor" placeholder="Doctor Name" required
+                    style="width:100%; padding:10px; margin-bottom:10px;">
+
+                <input type="text" name="status" placeholder="Status (Pending/Completed)" required
+                    style="width:100%; padding:10px; margin-bottom:10px;">
+
+                <button type="submit" style="
+                    width:100%;
+                    background:#1f3b57;
+                    color:white;
+                    padding:10px;
+                    border:none;
+                    border-radius:6px;">
+                    + Add Appointment
+                </button>
+
+            </form>
+
+        </div>
+
+        <!-- RIGHT TABLE -->
+        <div style="flex:2; min-width:400px; background:white; padding:20px; border-radius:10px;">
+
+            <h3 style="margin-top:0;">Appointment Records</h3>
+
+            <div style="overflow-x:auto;">
+
+                <table style="width:100%; border-collapse:collapse;">
+
+                    <thead>
+                        <tr style="background:#1f3b57; color:white;">
+                            <th style="padding:10px;">ID</th>
+                            <th>Patient ID</th>
+                            <th>Date</th>
+                            <th>Doctor</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        {% for a in appointments %}
+                        <tr style="text-align:center; border-bottom:1px solid #eee;">
+                            <td>{{ a.id }}</td>
+                            <td>{{ a.patient_id }}</td>
+                            <td>{{ a.appointment_date }}</td>
+                            <td>{{ a.doctor }}</td>
+                            <td>{{ a.status }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

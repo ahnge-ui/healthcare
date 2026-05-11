@@ -1,0 +1,106 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div style="padding:20px;">
+
+    <!-- HEADER (SAME STYLE FOR ALL MODULES) -->
+    <div style="margin-bottom:20px;">
+        <h2 style="margin:0;">Patients Management System</h2>
+        <p style="color:gray;">Manage hospital patient records efficiently</p>
+    </div>
+
+    <!-- MAIN GRID (SAME LAYOUT FOR ALL MODULES) -->
+    <div style="display:flex; gap:20px; flex-wrap:wrap;">
+
+        <!-- LEFT CARD: FORM -->
+        <div style="flex:1; min-width:300px; background:#f8f9fb; padding:20px; border-radius:10px;">
+
+            <h3 style="margin-top:0;"> Register Patient</h3>
+
+            <form action="/add_patient" method="POST">
+
+                <input type="text" name="fullname" placeholder="Full Name" required
+                    style="width:100%; padding:10px; margin-bottom:10px;">
+
+                <input type="number" name="age" placeholder="Age" required
+                    style="width:100%; padding:10px; margin-bottom:10px;">
+
+                <input type="text" name="gender" placeholder="Gender" required
+                    style="width:100%; padding:10px; margin-bottom:10px;">
+
+                <input type="text" name="contact" placeholder="Contact Number" required
+                    style="width:100%; padding:10px; margin-bottom:10px;">
+
+                <input type="text" name="address" placeholder="Address" required
+                    style="width:100%; padding:10px; margin-bottom:10px;">
+
+                <button type="submit" style="
+                    width:100%;
+                    background:#1f3b57;
+                    color:white;
+                    padding:10px;
+                    border:none;
+                    border-radius:6px;">
+                    + Add Patient
+                </button>
+
+            </form>
+
+        </div>
+
+        <!-- RIGHT CARD: TABLE -->
+        <div style="flex:2; min-width:400px; background:white; padding:20px; border-radius:10px;">
+
+            <h3 style="margin-top:0;">Patient Records</h3>
+
+            <div style="overflow-x:auto;">
+
+                <table style="width:100%; border-collapse:collapse;">
+
+                    <thead>
+                        <tr style="background:#1f3b57; color:white;">
+                            <th style="padding:10px;">ID</th>
+                            <th>Full Name</th>
+                            <th>Age</th>
+                            <th>Gender</th>
+                            <th>Contact</th>
+                            <th>Address</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        {% for patient in patients %}
+                        <tr style="text-align:center; border-bottom:1px solid #eee;">
+                            <td>{{ patient.id }}</td>
+                            <td>{{ patient.fullname }}</td>
+                            <td>{{ patient.age }}</td>
+                            <td>{{ patient.gender }}</td>
+                            <td>{{ patient.contact }}</td>
+                            <td>{{ patient.address }}</td>
+                            <td>
+                                <a href="/delete_patient/{{ patient.id }}" style="
+                                    background:red;
+                                    color:white;
+                                    padding:5px 10px;
+                                    border-radius:5px;
+                                    text-decoration:none;">
+                                    Delete
+                                </a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div style="padding:20px;">
+
+    <!-- HEADER -->
+    <div style="margin-bottom:20px;">
+        <h2 style="margin:0;"> Hospital Dashboard</h2>
+        <p style="color:gray;">Overview of hospital system statistics</p>
+    </div>
+
+    <!-- STATS CARDS -->
+    <div style="display:flex; gap:20px; flex-wrap:wrap;">
+
+        <div style="flex:1; min-width:200px; background:#1f3b57; color:white; padding:20px; border-radius:10px;">
+            <h3>Patients</h3>
+            <h1>{{ patients_count }}</h1>
+        </div>
+
+        <div style="flex:1; min-width:200px; background:#2c5f8a; color:white; padding:20px; border-radius:10px;">
+            <h3>Appointments</h3>
+            <h1>{{ appointments_count }}</h1>
+        </div>
+
+        <div style="flex:1; min-width:200px; background:#3a7ca5; color:white; padding:20px; border-radius:10px;">
+            <h3>Staff</h3>
+            <h1>{{ staff_count }}</h1>
+        </div>
+
+        <div style="flex:1; min-width:200px; background:#4a90c2; color:white; padding:20px; border-radius:10px;">
+            <h3>Medical Records</h3>
+            <h1>{{ records_count }}</h1>
+        </div>
+
+    </div>
+
+    <br>
+
+    <!-- QUICK LINKS -->
+    <div style="display:flex; gap:20px; flex-wrap:wrap;">
+
+        <a href="/patients" style="flex:1; min-width:200px; text-decoration:none;">
+            <div style="background:white; padding:20px; border-radius:10px; text-align:center;">
+                Manage Patients
+            </div>
+        </a>
+
+        <a href="/appointments" style="flex:1; min-width:200px; text-decoration:none;">
+            <div style="background:white; padding:20px; border-radius:10px; text-align:center;">
+                Manage Appointments
+            </div>
+        </a>
+
+        <a href="/staff" style="flex:1; min-width:200px; text-decoration:none;">
+            <div style="background:white; padding:20px; border-radius:10px; text-align:center;">
+                Manage Staff
+            </div>
+        </a>
+
+        <a href="/medical_records" style="flex:1; min-width:200px; text-decoration:none;">
+            <div style="background:white; padding:20px; border-radius:10px; text-align:center;">
+                Medical Records
+            </div>
+        </a>
+
+    </div>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,90 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div style="padding:20px;">
+
+    <!-- HEADER -->
+    <div style="margin-bottom:20px;">
+        <h2 style="margin:0;">Medical Records System</h2>
+        <p style="color:gray;">Manage patient diagnosis and treatment history</p>
+    </div>
+
+    <!-- MAIN LAYOUT -->
+    <div style="display:flex; gap:20px; flex-wrap:wrap;">
+
+        <!-- LEFT FORM -->
+        <div style="flex:1; min-width:300px; background:#f8f9fb; padding:20px; border-radius:10px;">
+
+            <h3 style="margin-top:0;">Add Medical Record</h3>
+
+            <form action="/add_record" method="POST">
+
+                <input type="number" name="patient_id" placeholder="Patient ID" required
+                    style="width:100%; padding:10px; margin-bottom:10px;">
+
+                <input type="text" name="diagnosis" placeholder="Diagnosis" required
+                    style="width:100%; padding:10px; margin-bottom:10px;">
+
+                <input type="text" name="treatment" placeholder="Treatment" required
+                    style="width:100%; padding:10px; margin-bottom:10px;">
+
+                <input type="text" name="record_date" placeholder="Record Date" required
+                    style="width:100%; padding:10px; margin-bottom:10px;">
+
+                <button type="submit" style="
+                    width:100%;
+                    background:#1f3b57;
+                    color:white;
+                    padding:10px;
+                    border:none;
+                    border-radius:6px;">
+                    + Add Record
+                </button>
+
+            </form>
+
+        </div>
+
+        <!-- RIGHT TABLE -->
+        <div style="flex:2; min-width:400px; background:white; padding:20px; border-radius:10px;">
+
+            <h3 style="margin-top:0;">Medical Records</h3>
+
+            <div style="overflow-x:auto;">
+
+                <table style="width:100%; border-collapse:collapse;">
+
+                    <thead>
+                        <tr style="background:#1f3b57; color:white;">
+                            <th style="padding:10px;">ID</th>
+                            <th>Patient ID</th>
+                            <th>Diagnosis</th>
+                            <th>Treatment</th>
+                            <th>Date</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        {% for r in records %}
+                        <tr style="text-align:center; border-bottom:1px solid #eee;">
+                            <td>{{ r.id }}</td>
+                            <td>{{ r.patient_id }}</td>
+                            <td>{{ r.diagnosis }}</td>
+                            <td>{{ r.treatment }}</td>
+                            <td>{{ r.record_date }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}
