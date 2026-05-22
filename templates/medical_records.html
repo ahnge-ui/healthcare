@@ -20,7 +20,7 @@
 
             <form action="/add_record" method="POST">
 
-                <input type="number" name="patient_id" placeholder="Patient ID" required
+                <input type="text" name="patient_name" placeholder="Patient Name" required
                     style="width:100%; padding:10px; margin-bottom:10px;">
 
                 <input type="text" name="diagnosis" placeholder="Diagnosis" required
@@ -29,8 +29,7 @@
                 <input type="text" name="treatment" placeholder="Treatment" required
                     style="width:100%; padding:10px; margin-bottom:10px;">
 
-                <input type="text" name="record_date" placeholder="Record Date" required
-                    style="width:100%; padding:10px; margin-bottom:10px;">
+                <input type="date" name="record_date" required style="width:100%; padding:10px; margin-bottom:10px;">
 
                 <button type="submit" style="
                     width:100%;
@@ -51,6 +50,16 @@
 
             <h3 style="margin-top:0;">Medical Records</h3>
 
+            <form action="/search_records" method="GET" style="margin-bottom:15px;">
+                <div style="display:flex; gap:10px;">
+                    <input type="text" name="query" placeholder="Search by patient name..."
+                        value="{{ search_query or '' }}"
+                        style="flex:1; padding:10px; border:1px solid #ddd; border-radius:5px;">
+                    <button type="submit"
+                        style="padding:10px 20px; background:#1f3b57; color:white; border:none; border-radius:5px;">Search</button>
+                </div>
+            </form>
+
             <div style="overflow-x:auto;">
 
                 <table style="width:100%; border-collapse:collapse;">
@@ -58,10 +67,11 @@
                     <thead>
                         <tr style="background:#1f3b57; color:white;">
                             <th style="padding:10px;">ID</th>
-                            <th>Patient ID</th>
+                            <th>Patient Name</th>
                             <th>Diagnosis</th>
                             <th>Treatment</th>
                             <th>Date</th>
+                            <th>Action</th>
                         </tr>
                     </thead>
 
@@ -69,10 +79,15 @@
                         {% for r in records %}
                         <tr style="text-align:center; border-bottom:1px solid #eee;">
                             <td>{{ r.id }}</td>
-                            <td>{{ r.patient_id }}</td>
+                            <td>{{ r.patient_name }}</td>
                             <td>{{ r.diagnosis }}</td>
                             <td>{{ r.treatment }}</td>
                             <td>{{ r.record_date }}</td>
+                            <td>
+                                <a href="/delete_record/{{ r.id }}"
+                                    style="background:#dc3545; color:white; padding:5px 10px; border-radius:4px; text-decoration:none; font-size:12px;"
+                                    onclick="return confirm('Are you sure?')">Delete</a>
+                            </td>
                         </tr>
                         {% endfor %}
                     </tbody>

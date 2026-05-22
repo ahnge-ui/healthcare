@@ -16,33 +16,48 @@
         <!-- LEFT FORM -->
         <div style="flex:1; min-width:300px; background:#f8f9fb; padding:20px; border-radius:10px;">
 
-            <h3 style="margin-top:0;">Schedule Appointment</h3>
+            {% if edit_appointment %}
+            <h3 style="margin-top:0;">Edit Appointment</h3>
+            <form action="/update_appointment/{{ edit_appointment.id }}" method="POST">
+                {% else %}
+                <h3 style="margin-top:0;">Schedule Appointment</h3>
+                <form action="/add_appointment" method="POST">
+                    {% endif %}
 
-            <form action="/add_appointment" method="POST">
+                    <select name="patient_id" required style="width:100%; padding:10px; margin-bottom:10px;">
+                        <option value="">-- Select Patient --</option>
+                        {% for patient in patients %}
+                        <option value="{{ patient.id }}" {% if edit_appointment and
+                            edit_appointment.patient_id==patient.id %}selected{% endif %}>
+                            {{ patient.fullname }}
+                        </option>
+                        {% endfor %}
+                    </select>
 
-                <input type="number" name="patient_id" placeholder="Patient ID" required
-                    style="width:100%; padding:10px; margin-bottom:10px;">
+                    <input type="date" name="appointment_date"
+                        value="{% if edit_appointment %}{{ edit_appointment.appointment_date }}{% endif %}" required
+                        style="width:100%; padding:10px; margin-bottom:10px;">
 
-                <input type="text" name="appointment_date" placeholder="Appointment Date" required
-                    style="width:100%; padding:10px; margin-bottom:10px;">
+                    <input type="text" name="doctor" placeholder="Doctor Name" required
+                        value="{% if edit_appointment %}{{ edit_appointment.doctor }}{% endif %}"
+                        style="width:100%; padding:10px; margin-bottom:10px;">
 
-                <input type="text" name="doctor" placeholder="Doctor Name" required
-                    style="width:100%; padding:10px; margin-bottom:10px;">
+                    <select name="status" required style="width:100%; padding:10px; margin-bottom:10px;">
+                        <option value="">-- Select Status --</option>
+                        <option value="Pending" {% if edit_appointment and edit_appointment.status=='Pending'
+                            %}selected{% endif %}>Pending</option>
+                        <option value="Completed" {% if edit_appointment and edit_appointment.status=='Completed'
+                            %}selected{% endif %}>Completed</option>
+                        <option value="Cancelled" {% if edit_appointment and edit_appointment.status=='Cancelled'
+                            %}selected{% endif %}>Cancelled</option>
+                    </select>
 
-                <input type="text" name="status" placeholder="Status (Pending/Completed)" required
-                    style="width:100%; padding:10px; margin-bottom:10px;">
+                    <button type="submit"
+                        style="width:100%; background:#1f3b57; color:white; padding:10px; border:none; border-radius:6px;">
+                        {% if edit_appointment %}Update Appointment{% else %}+ Add Appointment{% endif %}
+                    </button>
 
-                <button type="submit" style="
-                    width:100%;
-                    background:#1f3b57;
-                    color:white;
-                    padding:10px;
-                    border:none;
-                    border-radius:6px;">
-                    + Add Appointment
-                </button>
-
-            </form>
+                </form>
 
         </div>
 
@@ -51,6 +66,16 @@
 
             <h3 style="margin-top:0;">Appointment Records</h3>
 
+            <form action="/search_appointments" method="GET" style="margin-bottom:15px;">
+                <div style="display:flex; gap:10px;">
+                    <input type="text" name="query" placeholder="Search by patient name..."
+                        value="{{ search_query or '' }}"
+                        style="flex:1; padding:10px; border:1px solid #ddd; border-radius:5px;">
+                    <button type="submit"
+                        style="padding:10px 20px; background:#1f3b57; color:white; border:none; border-radius:5px;">Search</button>
+                </div>
+            </form>
+
             <div style="overflow-x:auto;">
 
                 <table style="width:100%; border-collapse:collapse;">
@@ -58,10 +83,11 @@
                     <thead>
                         <tr style="background:#1f3b57; color:white;">
                             <th style="padding:10px;">ID</th>
-                            <th>Patient ID</th>
+                            <th>Patient Name</th>
                             <th>Date</th>
                             <th>Doctor</th>
                             <th>Status</th>
+                            <th>Actions</th>
                         </tr>
                     </thead>
 
@@ -69,10 +95,17 @@
                         {% for a in appointments %}
                         <tr style="text-align:center; border-bottom:1px solid #eee;">
                             <td>{{ a.id }}</td>
-                            <td>{{ a.patient_id }}</td>
+                            <td>{{ a.patient.fullname }}</td>
                             <td>{{ a.appointment_date }}</td>
                             <td>{{ a.doctor }}</td>
                             <td>{{ a.status }}</td>
+                            <td>
+                                <a href="/edit_appointment/{{ a.id }}"
+                                    style="background:#28a745; color:white; padding:5px 8px; border-radius:4px; text-decoration:none; font-size:12px; margin-right:5px;">Edit</a>
+                                <a href="/delete_appointment/{{ a.id }}"
+                                    style="background:#dc3545; color:white; padding:5px 8px; border-radius:4px; text-decoration:none; font-size:12px;"
+                                    onclick="return confirm('Are you sure?')">Delete</a>
+                            </td>
                         </tr>
                         {% endfor %}
                     </tbody>

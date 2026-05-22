@@ -51,6 +51,15 @@
 
             <h3 style="margin-top:0;">Staff Records</h3>
 
+            <form action="/search_staff" method="GET" style="margin-bottom:15px;">
+                <div style="display:flex; gap:10px;">
+                    <input type="text" name="query" placeholder="Search by name..." value="{{ search_query or '' }}"
+                        style="flex:1; padding:10px; border:1px solid #ddd; border-radius:5px;">
+                    <button type="submit"
+                        style="padding:10px 20px; background:#1f3b57; color:white; border:none; border-radius:5px;">Search</button>
+                </div>
+            </form>
+
             <div style="overflow-x:auto;">
 
                 <table style="width:100%; border-collapse:collapse;">
@@ -62,6 +71,7 @@
                             <th>Position</th>
                             <th>Contact</th>
                             <th>Email</th>
+                            <th>Action</th>
                         </tr>
                     </thead>
 
@@ -73,6 +83,11 @@
                             <td>{{ s.position }}</td>
                             <td>{{ s.contact }}</td>
                             <td>{{ s.email }}</td>
+                            <td>
+                                <a href="/delete_staff/{{ s.id }}"
+                                    style="background:#dc3545; color:white; padding:5px 10px; border-radius:4px; text-decoration:none; font-size:12px;"
+                                    onclick="return confirm('Are you sure?')">Delete</a>
+                            </td>
                         </tr>
                         {% endfor %}
                     </tbody>

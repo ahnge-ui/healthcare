@@ -18,16 +18,16 @@ class Patient(db.Model):
 
 
 class Appointment(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    patient_id = db.Column(db.Integer)
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    patient_name = db.Column(db.String(100))
     appointment_date = db.Column(db.String(20))
     doctor = db.Column(db.String(100))
     status = db.Column(db.String(50))
 
 
 class MedicalRecord(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    patient_id = db.Column(db.Integer)
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    patient_name = db.Column(db.String(100))
     diagnosis = db.Column(db.Text)
     treatment = db.Column(db.Text)
     record_date = db.Column(db.String(20))

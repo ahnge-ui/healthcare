@@ -37,3 +37,14 @@ def delete_patient(id):
         db.session.commit()
 
     return redirect('/patients')
+
+
+# SEARCH PATIENTS
+@patients.route('/search_patients', methods=['GET'])
+def search_patients():
+    query = request.args.get('query', '')
+    if query:
+        data = Patient.query.filter(Patient.fullname.ilike(f'%{query}%')).all()
+    else:
+        data = Patient.query.all()
+    return render_template('patients.html', patients=data, search_query=query)

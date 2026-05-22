@@ -54,6 +54,15 @@
 
             <h3 style="margin-top:0;">Patient Records</h3>
 
+            <form action="/search_patients" method="GET" style="margin-bottom:15px;">
+                <div style="display:flex; gap:10px;">
+                    <input type="text" name="query" placeholder="Search by name..." value="{{ search_query or '' }}"
+                        style="flex:1; padding:10px; border:1px solid #ddd; border-radius:5px;">
+                    <button type="submit"
+                        style="padding:10px 20px; background:#1f3b57; color:white; border:none; border-radius:5px;">Search</button>
+                </div>
+            </form>
+
             <div style="overflow-x:auto;">
 
                 <table style="width:100%; border-collapse:collapse;">
